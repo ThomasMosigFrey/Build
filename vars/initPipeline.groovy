@@ -12,9 +12,6 @@ def call(body) {
         stages {
             stage('checkout and deploy') {
                 steps {
-                    when {
-
-                    }
                     // checkout using git
                     git branch: env.gitlabTargetBranch, credentialsId: '216620ce-5a09-425c-b73e-75c6078057cc', url: env.gitlabSourceRepoHttpUrl
 
@@ -49,6 +46,7 @@ def call(body) {
                 emailext body: 'sdf', recipientProviders: [developers(), upstreamDevelopers()], subject: 'Failed: ${env.JOB_NAME}  ${env.GIT_BRANCH}', to: 'thomas.frey@edv-frey.de'
             }
             always {
+                emailext body: 'sdf', recipientProviders: [developers(), upstreamDevelopers()], subject: 'RUN: ${env.JOB_NAME}  ${env.GIT_BRANCH}', to: 'thomas.frey@edv-frey.de'
                 cleanWs cleanWhenAborted: false, cleanWhenFailure: false, cleanWhenNotBuilt: false, notFailBuild: true
             }
         }
