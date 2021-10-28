@@ -23,20 +23,20 @@ def call(body) {
                     script {
                         def portals = readCSV file: 'builds/PortalList.csv', text: '', format: CSVFormat.DEFAULT.withHeader()
 
-                        for (int i = portals.size(); i < portals.size(); ++i) {
-                                echo "publishing to portal: ${portals[i].get('Portal')}"
-                                echo "using ssh configuration: ${portals[i].get('ConfigName')}"
-                                echo "publishing to remote directory: ${portals[i].get('RemoteDir')}"
+                        for (int i = 0; i < portals.size(); ++i) {
+                            echo "publishing to portal: ${portals[i].get('Portal')}"
+                            echo "using ssh configuration: ${portals[i].get('ConfigName')}"
+                            echo "publishing to remote directory: ${portals[i].get('RemoteDir')}"
 
-                                // deploy using ssh to all portal dirs
-                                sshPublisher(publishers: [sshPublisherDesc(configName: portals[i].get('ConfigName'),
-                                        transfers: [sshTransfer(cleanRemote: false, excludes: '',
-                                                execCommand: '', execTimeout: 120000,
-                                                flatten: false, makeEmptyDirs: false, noDefaultExcludes: false,
-                                                patternSeparator: '[, ]+', remoteDirectory: portals[i].get('RemoteDir'),
-                                                remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')],
-                                        usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-                            }
+                            // deploy using ssh to all portal dirs
+                            sshPublisher(publishers: [sshPublisherDesc(configName: portals[i].get('ConfigName'),
+                                    transfers: [sshTransfer(cleanRemote: false, excludes: '',
+                                            execCommand: '', execTimeout: 120000,
+                                            flatten: false, makeEmptyDirs: false, noDefaultExcludes: false,
+                                            patternSeparator: '[, ]+', remoteDirectory: portals[i].get('RemoteDir'),
+                                            remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')],
+                                    usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                        }
                     }
                 }
             }
