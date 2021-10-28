@@ -45,8 +45,10 @@ def call(body) {
             }
         }
         post {
-            always {
+            failure {
                 emailext body: 'sdf', recipientProviders: [developers(), upstreamDevelopers()], subject: 'Failed: ${env.JOB_NAME}  ${env.GIT_BRANCH}', to: 'thomas.frey@edv-frey.de'
+            }
+            always {
                 cleanWs cleanWhenAborted: false, cleanWhenFailure: false, cleanWhenNotBuilt: false, notFailBuild: true
             }
         }
