@@ -45,7 +45,8 @@ def call(body) {
         }
         post {
             failure {
-                emailext from: 'thomasmosigfrey@googlemail.com', body: "${env.JOB_NAME}\\n${env.BUILD_URL}", recipientProviders: [developers(), upstreamDevelopers()], subject: "Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}", to: 'thomas.frey@edv-frey.de'
+                emailext body: """${env.JOB_NAME}
+${env.BUILD_URL}""", recipientProviders: [developers(), upstreamDevelopers()], subject: "Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}", to: 'thomas.frey@edv-frey.de'
             }
             always {
                 emailext body: """${env.JOB_NAME}
