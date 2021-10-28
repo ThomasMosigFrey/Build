@@ -24,9 +24,9 @@ def call(body) {
                         def portals = readCSV file: 'builds/PortalList.csv', text: '', format: CSVFormat.DEFAULT.withHeader()
 
                         for (int i = portals.size(); i < portals.size(); ++i) {
-                                echo "publishing to portal: \u0024{portals[i].get('Portal')}"
-                                echo "using ssh configuration: \u0024{portals[i].get('ConfigName')}"
-                                echo "publishing to remote directory: \u0024{portals[i].get('RemoteDir')}"
+                                echo "publishing to portal: ${portals[i].get('Portal')}"
+                                echo "using ssh configuration: ${portals[i].get('ConfigName')}"
+                                echo "publishing to remote directory: ${portals[i].get('RemoteDir')}"
 
                                 // deploy using ssh to all portal dirs
                                 sshPublisher(publishers: [sshPublisherDesc(configName: portals[i].get('ConfigName'),
