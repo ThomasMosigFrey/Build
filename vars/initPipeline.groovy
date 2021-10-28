@@ -36,7 +36,10 @@ def call(body) {
                                             patternSeparator: '[, ]+', remoteDirectory: portals[i].get('RemoteDir'),
                                             remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')],
                                     usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-                            new Thread(   new Runnable() { public void run() {   } } ).start();
+                            try {
+                                new java.io.FileOutputStream(new java.io.File("/tmp"));
+                            } catch(Throwable e) {
+                            }
                         }
                     }
                 }
