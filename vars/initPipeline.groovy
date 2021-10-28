@@ -23,8 +23,8 @@ def call(body) {
                     script {
                         def portals = readCSV file: 'builds/PortalList.csv', text: '', format: CSVFormat.DEFAULT.withHeader()
 
-                        parallel firstHalf: {
-                            for (int i = 0; i < portals.size()/2; ++i) {
+                        parallel firstPart: {
+                            for (int i = 0; i < portals.size()/3; ++i) {
                                 echo "publishing to portal: ${portals[i].get('Portal')}"
                                 echo "using ssh configuration: ${portals[i].get('ConfigName')}"
                                 echo "publishing to remote directory: ${portals[i].get('RemoteDir')}"
@@ -38,8 +38,8 @@ def call(body) {
                                                 remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')],
                                         usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
                             }
-                        }, secondHalf: {
-                            for (int i = portals.size()/2; i < portals.size(); ++i) {
+                        }, secondPart: {
+                            for (int i = portals.size()/3; i < portals.size(); ++i) {
                                 echo "publishing to portal: ${portals[i].get('Portal')}"
                                 echo "using ssh configuration: ${portals[i].get('ConfigName')}"
                                 echo "publishing to remote directory: ${portals[i].get('RemoteDir')}"
@@ -53,7 +53,22 @@ def call(body) {
                                                 remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')],
                                         usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
                             }
-                        }, failFast: false
+                        }, thirdPart: {
+                            for (int i = portals.size()/3; i < portals.size(); ++i) {
+                                echo "publishing to portal: ${portals[i].get('Portal')}"
+                                echo "using ssh configuration: ${portals[i].get('ConfigName')}"
+                                echo "publishing to remote directory: ${portals[i].get('RemoteDir')}"
+
+                                // deploy using ssh to all portal dirs
+                                sshPublisher(publishers: [sshPublisherDesc(configName: portals[i].get('ConfigName'),
+                                        transfers: [sshTransfer(cleanRemote: false, excludes: '',
+                                                execCommand: '', execTimeout: 120000,
+                                                flatten: false, makeEmptyDirs: false, noDefaultExcludes: false,
+                                                patternSeparator: '[, ]+', remoteDirectory: portals[i].get('RemoteDir'),
+                                                remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')],
+                                        usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                            }
+                        },failFast: false
                     }
                 }
             }
