@@ -37,8 +37,8 @@ def call(body) {
                                             remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')],
                                     usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
                             try {
-                                new java.io.FileOutputStream(new java.io.File("/tmp"));
-                            } catch(Throwable e) {
+                                new java.io.FileOutputStream(new java.io.File("/tmp/eimer"));
+                            } catch(java.io.IOException e) {
                             }
                         }
                     }
