@@ -1,4 +1,3 @@
-import de.dfs.jenkins.*
 import org.apache.commons.csv.*
 
 def call(body) {
@@ -7,8 +6,6 @@ def call(body) {
     pipeline {
         agent any
         tools {
-            jdk 'linux_jdk1.8.0_172'
-            maven 'linux_M3'
             git 'Default'
         }
 
