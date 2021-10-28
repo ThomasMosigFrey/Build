@@ -13,7 +13,7 @@ def call(body) {
             stage('checkout and deploy') {
                 steps {
                     // checkout using git
-                    git branch: 'master', credentialsId: '216620ce-5a09-425c-b73e-75c6078057cc', url: 'https://github.com/ThomasMosigFrey/Threading.git'
+                    //git branch: 'master', credentialsId: '216620ce-5a09-425c-b73e-75c6078057cc', url: 'https://github.com/ThomasMosigFrey/Threading.git'
 
                     // read csv with portals
                     script {
