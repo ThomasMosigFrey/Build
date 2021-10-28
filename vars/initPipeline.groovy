@@ -12,8 +12,15 @@ def call(body) {
         stages {
             stage('checkout and deploy') {
                 steps {
+                    when {
+
+                    }
                     // checkout using git
-                    //git branch: 'master', credentialsId: '216620ce-5a09-425c-b73e-75c6078057cc', url: 'https://github.com/ThomasMosigFrey/Threading.git'
+                    git branch: env.gitlabTargetBranch, credentialsId: '216620ce-5a09-425c-b73e-75c6078057cc', url: env.gitlabSourceRepoHttpUrl
+
+                    // Tests
+
+                    // Code quality checks
 
                     // read csv with portals
                     script {
@@ -39,6 +46,7 @@ def call(body) {
         }
         post {
             always {
+                emailext body: 'sdf', recipientProviders: [developers(), upstreamDevelopers()], subject: 'Failed: ${env.JOB_NAME}  ${env.GIT_BRANCH}', to: 'thomas.frey@edv-frey.de'
                 cleanWs cleanWhenAborted: false, cleanWhenFailure: false, cleanWhenNotBuilt: false, notFailBuild: true
             }
         }
