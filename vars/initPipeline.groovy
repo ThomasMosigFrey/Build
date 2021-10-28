@@ -31,10 +31,10 @@ def call(body) {
                             // deploy using ssh to all portal dirs
                             sshPublisher(publishers: [sshPublisherDesc(configName: portals[i].get('ConfigName'),
                                     transfers: [sshTransfer(cleanRemote: false, excludes: '',
-                                            execCommand: '', execTimeout: 120000,
-                                            flatten: false, makeEmptyDirs: false, noDefaultExcludes: false,
-                                            patternSeparator: '[, ]+', remoteDirectory: portals[i].get('RemoteDir'),
-                                            remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')],
+                                    execCommand: '', execTimeout: 120000,
+                                    flatten: false, makeEmptyDirs: false, noDefaultExcludes: false,
+                                    patternSeparator: '[, ]+', remoteDirectory: portals[i].get('RemoteDir'),
+                                    remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')],
                                     usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
                         }
                     }
