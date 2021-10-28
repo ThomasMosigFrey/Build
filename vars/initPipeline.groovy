@@ -13,7 +13,7 @@ def call(body) {
             stage('checkout and deploy') {
                 steps {
                     // checkout using git
-                    git branch: env.gitlabTargetBranch, credentialsId: '216620ce-5a09-425c-b73e-75c6078057cc', url: env.gitlabSourceRepoHttpUrl
+                    // git branch: env.gitlabTargetBranch, credentialsId: '216620ce-5a09-425c-b73e-75c6078057cc', url: env.gitlabSourceRepoHttpUrl
 
                     // Tests
 
