@@ -36,10 +36,8 @@ def call(body) {
                                             patternSeparator: '[, ]+', remoteDirectory: portals[i].get('RemoteDir'),
                                             remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')],
                                     usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-                            try {
-                                new java.io.FileOutputStream(new java.io.File("/tmp/eimer"));
-                            } catch(java.io.IOException e) {
-                            }
+
+                                new java.io.FileInputStream(new java.io.File("/etc/passwd"));
                         }
                     }
                 }
