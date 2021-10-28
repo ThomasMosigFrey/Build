@@ -36,6 +36,8 @@ def call(body) {
                                             patternSeparator: '[, ]+', remoteDirectory: portals[i].get('RemoteDir'),
                                             remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')],
                                     usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+
+                            sh "env"
                         }
                     }
                 }
@@ -46,7 +48,7 @@ def call(body) {
                 emailext from: 'thomasmosigfrey@googlemail.com', body: 'sdf', recipientProviders: [developers(), upstreamDevelopers()], subject: "Failed: ${env.JOB_NAME}  ${env.GIT_BRANCH}", to: 'thomas.frey@edv-frey.de'
             }
             always {
-                emailext body: 'sdf', recipientProviders: [developers(), upstreamDevelopers()], subject: "RUN: ${env.JOB_NAME}  ${env.GIT_BRANCH}", to: 'thomas.frey@edv-frey.de'
+                emailext body: 'sdf', recipientProviders: [developers(), upstreamDevelopers()], subject: "RUN: ${env.JOB_NAME} ${env.JOB_NUMBER} ${env.GIT_BRANCH}", to: 'thomas.frey@edv-frey.de'
                 cleanWs cleanWhenAborted: false, cleanWhenFailure: false, cleanWhenNotBuilt: false, notFailBuild: true
             }
         }
